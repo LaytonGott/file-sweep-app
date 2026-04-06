@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FileVault</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #faf6f0;
+      color: #4a3f35;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: #3d3428;
+      letter-spacing: -0.3px;
+    }
+
+    .header h1 span { color: #b8964e; }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .status-badge.active {
+      background: #eef6ec;
+      color: #5a8a4a;
+      border: 1px solid #d4e8cf;
+    }
+
+    .status-badge.inactive {
+      background: #f5f0ea;
+      color: #9a8b78;
+      border: 1px solid #e8e0d4;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .status-badge.active .status-dot { animation: pulse 2.5s ease infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #b5a898;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 22px;
+      font-weight: 600;
+      color: #3d3428;
+    }
+
+    .stat-value.accent { color: #b8964e; }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-start { background: #b8964e; color: #fff; }
+    .btn-start:hover { background: #a6863f; }
+
+    .btn-stop { background: #c97; color: #fff; }
+    .btn-stop:hover { background: #b07848; }
+
+    .btn-cancel-all {
+      background: transparent;
+      color: #b08060;
+      border: 1px solid #ddd0c0;
+    }
+    .btn-cancel-all:hover { background: #f0e8dc; }
+
+    .delay-picker {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .delay-picker label {
+      font-size: 12px;
+      color: #9a8b78;
+    }
+
+    .delay-picker select {
+      background: #fff;
+      border: 1px solid #e0d8cc;
+      color: #4a3f35;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .delay-picker select:focus { border-color: #b8964e; }
+
+    /* Sections */
+    .section { margin-bottom: 32px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #9a8b78;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .count-badge {
+      background: #b8964e;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 1px 9px;
+      border-radius: 100px;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .empty-state {
+      padding: 44px 24px;
+      text-align: center;
+      color: #b5a898;
+      font-size: 13px;
+    }
+
+    .empty-state .icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+      opacity: 0.4;
+    }
+
+    /* Queue item */
+    .queue-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid #f2ece4;
+      transition: background 0.1s;
+    }
+
+    .queue-item:last-child { border-bottom: none; }
+    .queue-item:hover { background: #fdfbf8; }
+
+    .file-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      margin-right: 12px;
+      flex-shrink: 0;
+      background: #f5f0ea;
+    }
+
+    .file-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .file-icon.images { background: #fef5e0; }
+    .file-icon.documents { background: #eef3e8; }
+    .file-icon.videos { background: #fce8ec; }
+    .file-icon.audio { background: #fef0e4; }
+    .file-icon.archives { background: #e8eef5; }
+    .file-icon.other { background: #f0ece6; }
+
+    .file-info { flex: 1; min-width: 0; }
+
+    .file-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #3d3428;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-meta {
+      font-size: 11px;
+      color: #b5a898;
+      margin-top: 1px;
+    }
+
+    .countdown {
+      font-size: 13px;
+      font-weight: 600;
+      color: #b8964e;
+      margin-right: 12px;
+      min-width: 52px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-x {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid #e8e0d4;
+      background: #fff;
+      color: #c0a080;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-x:hover {
+      background: #fdf0e0;
+      border-color: #d0c0a8;
+      color: #a07040;
+    }
+
+    /* History */
+    .history-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      border-bottom: 1px solid #f2ece4;
+      font-size: 12px;
+    }
+
+    .history-item:last-child { border-bottom: none; }
+
+    .history-thumb {
+      width: 32px;
+      height: 32px;
+      border-radius: 5px;
+      object-fit: cover;
+      margin-right: 10px;
+      flex-shrink: 0;
+      background: #f5f0ea;
+    }
+
+    .history-item .file-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 13px;
+      margin-right: 10px;
+    }
+
+    .history-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .history-name {
+      color: #5a5045;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .history-detail {
+      font-size: 10px;
+      color: #b5a898;
+      margin-top: 1px;
+    }
+
+    .btn-undo {
+      padding: 4px 10px;
+      border-radius: 5px;
+      border: 1px solid #e0d8cc;
+      background: #fff;
+      color: #9a8b78;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.1s;
+      margin-left: 8px;
+      white-space: nowrap;
+    }
+
+    .btn-undo:hover {
+      background: #fef8ee;
+      border-color: #d0c0a8;
+      color: #b8964e;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+      z-index: 999;
+    }
+
+    .toast {
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #4a3f35;
+      box-shadow: 0 4px 20px rgba(80, 60, 30, 0.08);
+      animation: slideIn 0.25s ease, fadeOut 0.3s ease 3.5s forwards;
+      max-width: 300px;
+    }
+
+    .toast.swept { border-left: 3px solid #8aad70; }
+    .toast.cancelled { border-left: 3px solid #d4a050; }
+    .toast.undo { border-left: 3px solid #7aa0c0; }
+    .toast.error { border-left: 3px solid #c07a7a; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; transform: translateY(8px); }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="status-badge inactive" id="statusBadge">
+        <div class="status-dot"></div>
+        <span id="statusText">Stopped</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-label">Freed Up</div>
+        <div class="stat-value accent" id="statFreed">0 B</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Files Swept</div>
+        <div class="stat-value" id="statCount">0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">In Queue</div>
+        <div class="stat-value" id="statQueue">0</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-start" id="btnStart" onclick="startWatching()">Start Watching</button>
+      <button class="btn btn-stop" id="btnStop" onclick="stopWatching()" style="display:none">Stop</button>
+      <button class="btn btn-cancel-all" id="btnCancelAll" onclick="cancelAll()" style="display:none">Cancel All</button>
+      <div class="delay-picker">
+        <label for="delay">Delay</label>
+        <select id="delay" onchange="setDelay(this.value)">
+          <option value="5s">5 sec</option>
+          <option value="5">5 min</option>
+          <option value="10">10 min</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Queue</div>
+        <div class="count-badge" id="queueCount">0</div>
+      </div>
+      <div class="card" id="queueCard">
+        <div class="empty-state" id="queueEmpty">
+          <div class="icon">~</div>
+          <div>No files waiting</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Recently Swept</div>
+      </div>
+      <div class="card" id="historyCard">
+        <div class="empty-state" id="historyEmpty">
+          <div class="icon">~</div>
+          <div>Nothing swept yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toasts"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let queue = [];
+    let historyData = [];
+
+    const typeIcons = {
+      Images: "\u{1F5BC}", Documents: "\u{1F4C4}", Videos: "\u{1F3AC}",
+      Audio: "\u{1F3B5}", Archives: "\u{1F4E6}", Other: "\u{1F4CE}",
+    };
+
+    const imageExts = ["png","jpg","jpeg","gif","bmp","webp","avif"];
+
+    function getType(filename) {
+      const ext = filename.split(".").pop().toLowerCase();
+      if (["png","jpg","jpeg","gif","bmp","webp","svg","ico","tiff","heic","avif"].includes(ext)) return "Images";
+      if (["pdf","doc","docx","xls","xlsx","ppt","pptx","txt","csv"].includes(ext)) return "Documents";
+      if (["mp4","mov","avi","mkv","webm"].includes(ext)) return "Videos";
+      if (["mp3","wav","flac","ogg"].includes(ext)) return "Audio";
+      if (["zip","rar","7z","tar","gz"].includes(ext)) return "Archives";
+      return "Other";
+    }
+
+    function isImage(filename) {
+      return imageExts.includes(filename.split(".").pop().toLowerCase());
+    }
+
+    function formatSize(bytes) {
+      if (!bytes) return "";
+      if (bytes < 1024) return bytes + " B";
+      if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / 1048576).toFixed(1) + " MB";
+    }
+
+    function startWatching() { socket.emit("start"); }
+    function stopWatching() { socket.emit("stop"); }
+    function cancelAll() { socket.emit("cancelAll"); }
+    function cancelOne(id) { socket.emit("cancel", id); }
+    function undoSweep(id) { socket.emit("undo", id); }
+
+    function setDelay(val) {
+      if (val === "5s") socket.emit("setDelayMs", 5000);
+      else socket.emit("setDelay", parseInt(val));
+    }
+
+    function renderQueue() {
+      const card = document.getElementById("queueCard");
+      const empty = document.getElementById("queueEmpty");
+      document.getElementById("queueCount").textContent = queue.length;
+      document.getElementById("statQueue").textContent = queue.length;
+      document.getElementById("btnCancelAll").style.display = queue.length > 0 ? "" : "none";
+
+      if (queue.length === 0) {
+        card.querySelectorAll(".queue-item").forEach(el => el.remove());
+        empty.style.display = "";
+        return;
+      }
+
+      empty.style.display = "none";
+      const html = queue.map(item => {
+        const type = getType(item.filename);
+        const icon = typeIcons[type] || "\u{1F4CE}";
+        const sourceFolder = item.source;
+        const sizeStr = formatSize(item.size);
+
+        let thumbHtml;
+        if (item.thumbnail) {
+          thumbHtml = `<img class="file-thumb" src="${item.thumbnail}" alt="">`;
+        } else {
+          thumbHtml = `<div class="file-icon ${type.toLowerCase()}">${icon}</div>`;
+        }
+
+        return `
+          <div class="queue-item" data-id="${item.id}">
+            ${thumbHtml}
+            <div class="file-info">
+              <div class="file-name">${esc(item.filename)}</div>
+              <div class="file-meta">from ${esc(sourceFolder)}${sizeStr ? " \u00B7 " + sizeStr : ""}</div>
+            </div>
+            <div class="countdown" data-sweep="${item.sweepAt}">--:--</div>
+            <button class="btn-x" onclick="cancelOne(${item.id})" title="Keep this file">\u2715</button>
+          </div>
+        `;
+      }).join("");
+
+      card.querySelectorAll(".queue-item").forEach(el => el.remove());
+      card.insertAdjacentHTML("beforeend", html);
+    }
+
+    function renderHistory(hist) {
+      historyData = hist || [];
+      const card = document.getElementById("historyCard");
+      const empty = document.getElementById("historyEmpty");
+      document.getElementById("statCount").textContent = historyData.length;
+
+      if (historyData.length === 0) {
+        card.querySelectorAll(".history-item").forEach(el => el.remove());
+        empty.style.display = "";
+        return;
+      }
+
+      empty.style.display = "none";
+      const html = historyData.slice(0, 25).map(h => {
+        const type = h.subfolder || getType(h.filename);
+        const icon = typeIcons[type] || "\u{1F4CE}";
+        const time = new Date(h.time).toLocaleTimeString();
+        const sizeStr = formatSize(h.size);
+
+        let thumbHtml;
+        if (h.thumbnail && isImage(h.filename)) {
+          thumbHtml = `<img class="history-thumb" src="${h.thumbnail}" alt="">`;
+        } else {
+          thumbHtml = `<div class="file-icon ${type.toLowerCase()}">${icon}</div>`;
+        }
+
+        return `
+          <div class="history-item">
+            ${thumbHtml}
+            <div class="history-info">
+              <div class="history-name">${esc(h.filename)}</div>
+              <div class="history-detail">${esc(h.dest)}${sizeStr ? " \u00B7 " + sizeStr : ""} \u00B7 ${time}</div>
+            </div>
+            <button class="btn-undo" onclick="undoSweep(${h.id})">Undo</button>
+          </div>
+        `;
+      }).join("");
+
+      card.querySelectorAll(".history-item").forEach(el => el.remove());
+      card.insertAdjacentHTML("beforeend", html);
+    }
+
+    function setWatchUI(active) {
+      const badge = document.getElementById("statusBadge");
+      const text = document.getElementById("statusText");
+      badge.className = "status-badge " + (active ? "active" : "inactive");
+      text.textContent = active ? "Watching" : "Stopped";
+      document.getElementById("btnStart").style.display = active ? "none" : "";
+      document.getElementById("btnStop").style.display = active ? "" : "none";
+    }
+
+    function showToast(msg, type) {
+      const el = document.createElement("div");
+      el.className = "toast " + type;
+      el.textContent = msg;
+      document.getElementById("toasts").appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+
+    function esc(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // Countdowns
+    setInterval(() => {
+      document.querySelectorAll(".countdown").forEach(el => {
+        const target = parseInt(el.dataset.sweep);
+        const diff = target - Date.now();
+        if (diff <= 0) {
+          el.textContent = "now";
+        } else {
+          const m = Math.floor(diff / 60000);
+          const s = Math.floor((diff % 60000) / 1000);
+          el.textContent = m > 0 ? `${m}m ${s}s` : `${s}s`;
+        }
+      });
+    }, 1000);
+
+    // Socket events
+    socket.on("state", s => {
+      setWatchUI(s.watching);
+      syncDelayDropdown(s.delayMs);
+      queue = s.queue;
+      renderQueue();
+      renderHistory(s.history);
+      if (s.stats) {
+        document.getElementById("statFreed").textContent = s.stats.formatted;
+      }
+    });
+
+    socket.on("watchStatus", active => setWatchUI(active));
+
+    function syncDelayDropdown(ms) {
+      if (ms <= 5000) document.getElementById("delay").value = "5s";
+      else document.getElementById("delay").value = ms / 60000;
+    }
+
+    socket.on("delayChanged", d => syncDelayDropdown(d.delayMs));
+    socket.on("queue", q => { queue = q; renderQueue(); });
+    socket.on("detected", d => showToast(`Detected: ${d.filename}`, "swept"));
+    socket.on("swept", d => { if (d.status === "ok") showToast(`Swept: ${d.filename}`, "swept"); });
+    socket.on("cancelled", d => showToast(`Kept: ${d.filename}`, "cancelled"));
+    socket.on("history", h => renderHistory(h));
+    socket.on("stats", s => {
+      document.getElementById("statFreed").textContent = s.formatted;
+    });
+    socket.on("undoResult", r => {
+      if (r.ok) {
+        showToast(`Restored: ${r.filename}`, "undo");
+      } else {
+        showToast(`Undo failed: ${r.msg}`, "error");
+      }
+    });
+  </script>
+</body>
+</html>

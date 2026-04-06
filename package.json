@@ -1,0 +1,30 @@
+{
+  "name": "file-sweep",
+  "version": "1.0.0",
+  "description": "Auto-sweep downloads, screenshots, and files into an organized vault. Watches your folders, gives you time to use files, then tidies them away.",
+  "main": "server.js",
+  "bin": {
+    "file-sweep": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["file", "organizer", "cleanup", "downloads", "screenshots", "sweep", "auto-organize"],
+  "author": "LaytonGott",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LaytonGott/file-sweep"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "express": "^5.2.1",
+    "open": "^11.0.0",
+    "socket.io": "^4.8.3"
+  }
+}
