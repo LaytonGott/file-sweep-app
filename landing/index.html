@@ -38,7 +38,7 @@
       margin-bottom: 40px;
     }
 
-    /* Demo */
+    /* === DEMO (matches real app) === */
     .demo {
       background: #fff;
       border: 1px solid #e8e0d4;
@@ -65,140 +65,265 @@
       background: #ddd4c8;
     }
 
-    .demo-body {
-      padding: 16px;
-      min-height: 200px;
-      position: relative;
+    .demo-inner {
+      padding: 20px;
     }
 
-    .demo-label {
+    /* Status badge */
+    .d-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      background: #eef6ec;
+      color: #5a8a4a;
+      border: 1px solid #d4e8cf;
+    }
+
+    .d-badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #5a8a4a;
+      animation: pulse 2.5s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* Stats row */
+    .d-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .d-stat {
+      flex: 1;
+      background: #faf6f0;
+      border: 1px solid #ede6dc;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .d-stat-label {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #b5a898;
+      margin-bottom: 2px;
+    }
+
+    .d-stat-val {
+      font-size: 18px;
+      font-weight: 600;
+      color: #3d3428;
+      transition: all 0.3s;
+    }
+
+    .d-stat-val.gold { color: #b8964e; }
+
+    /* Section labels */
+    .d-section {
       font-size: 10px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: #b5a898;
-      margin-bottom: 10px;
-    }
-
-    .demo-sides {
-      display: flex;
-      gap: 12px;
-    }
-
-    .demo-col {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .demo-file {
+      color: #9a8b78;
+      margin-bottom: 8px;
+      margin-top: 16px;
       display: flex;
       align-items: center;
-      padding: 8px 10px;
-      border-radius: 7px;
-      margin-bottom: 6px;
-      font-size: 11px;
-      font-weight: 500;
-      color: #3d3428;
-      transition: all 0.4s ease;
-      overflow: hidden;
-      max-height: 44px;
-      opacity: 1;
-      background: #fdfbf8;
-      border: 1px solid #f0e8dc;
+      justify-content: space-between;
     }
 
-    .demo-file.removing {
-      opacity: 0;
+    .d-count {
+      background: #b8964e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 8px;
+      border-radius: 100px;
+    }
+
+    /* Queue card */
+    .d-card {
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .d-empty {
+      padding: 28px;
+      text-align: center;
+      color: #b5a898;
+      font-size: 12px;
+    }
+
+    .d-file {
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid #f2ece4;
+      transition: all 0.4s ease;
+      max-height: 60px;
+      opacity: 1;
+      overflow: hidden;
+    }
+
+    .d-file:last-child { border-bottom: none; }
+
+    .d-file.removing {
       max-height: 0;
+      opacity: 0;
       padding-top: 0;
       padding-bottom: 0;
-      margin-bottom: 0;
-      border-color: transparent;
     }
 
-    .demo-file.adding {
-      animation: fileIn 0.3s ease;
+    .d-file.adding {
+      animation: slideIn 0.35s ease;
     }
 
-    @keyframes fileIn {
-      from { opacity: 0; max-height: 0; padding: 0 10px; margin-bottom: 0; }
-      to { opacity: 1; max-height: 44px; padding: 8px 10px; margin-bottom: 6px; }
+    @keyframes slideIn {
+      from { max-height: 0; opacity: 0; padding-top: 0; padding-bottom: 0; }
+      to { max-height: 60px; opacity: 1; padding-top: 10px; padding-bottom: 10px; }
     }
 
-    .demo-file-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 5px;
+    .d-file-thumb {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      background: #fef5e0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      margin-right: 8px;
+      font-size: 15px;
+      margin-right: 10px;
       flex-shrink: 0;
     }
 
-    .demo-file-icon.img { background: #fef5e0; }
-    .demo-file-icon.doc { background: #eef3e8; }
-    .demo-file-icon.vid { background: #fce8ec; }
-    .demo-file-icon.zip { background: #e8eef5; }
+    .d-file-info { flex: 1; min-width: 0; }
 
-    .demo-file-name {
-      flex: 1;
+    .d-file-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: #3d3428;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .demo-countdown {
+    .d-file-meta {
       font-size: 10px;
+      color: #b5a898;
+      margin-top: 1px;
+    }
+
+    .d-countdown {
+      font-size: 12px;
       font-weight: 600;
       color: #b8964e;
-      margin-left: 6px;
-      white-space: nowrap;
+      margin-right: 8px;
+      min-width: 20px;
+      text-align: right;
     }
 
-    .demo-file.swept {
-      background: #f5f0ea;
-      border-color: #e8e0d4;
-      color: #9a8b78;
-    }
-
-    .demo-arrow {
+    .d-x {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      border: 1px solid #e8e0d4;
+      background: #fff;
+      color: #c0a080;
+      font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #b8964e;
-      font-size: 18px;
-      flex-shrink: 0;
-      width: 24px;
-      align-self: center;
     }
 
-    .demo-status {
-      text-align: center;
-      font-size: 10px;
-      color: #b5a898;
-      margin-top: 12px;
-      min-height: 16px;
-    }
-
-    .demo-status strong {
-      color: #b8964e;
-      font-weight: 600;
-    }
-
-    .demo-freed {
+    /* History items */
+    .d-hist {
+      display: flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-bottom: 1px solid #f2ece4;
       font-size: 11px;
-      font-weight: 600;
-      color: #b8964e;
-      text-align: center;
-      margin-top: 8px;
+      transition: all 0.4s ease;
+      max-height: 50px;
+      opacity: 1;
+      overflow: hidden;
     }
+
+    .d-hist:last-child { border-bottom: none; }
+
+    .d-hist.adding {
+      animation: slideIn 0.35s ease;
+    }
+
+    .d-hist-name {
+      flex: 1;
+      color: #5a5045;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .d-hist-dest {
+      color: #b5a898;
+      font-size: 10px;
+      margin-left: 8px;
+    }
+
+    .d-hist-undo {
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid #e0d8cc;
+      background: #fff;
+      color: #9a8b78;
+      font-size: 10px;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    /* Toast */
+    .d-toast {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-left: 3px solid #8aad70;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 11px;
+      color: #4a3f35;
+      box-shadow: 0 4px 16px rgba(80, 60, 30, 0.08);
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.25s ease;
+    }
+
+    .d-toast.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .d-toast.swept-toast { border-left-color: #8aad70; }
+    .d-toast.deleted-toast { border-left-color: #c97; }
+
+    .demo-inner { position: relative; }
 
     /* CTA */
-    .cta {
-      margin-bottom: 40px;
-    }
+    .cta { margin-bottom: 40px; }
 
     .cta a {
       display: inline-block;
@@ -304,27 +429,45 @@
     <div class="rundown">Watches your Downloads, Pictures, and Screenshots for new files. Gives you time to use them, then automatically moves them to one organized vault and deletes the originals. Cancel anything you want to keep, undo if you change your mind.</div>
     <div class="byline">by Layton Gott</div>
 
-    <!-- Live demo -->
+    <!-- Demo that looks like the real app -->
     <div class="demo">
       <div class="demo-bar">
         <div class="demo-dot"></div>
         <div class="demo-dot"></div>
         <div class="demo-dot"></div>
       </div>
-      <div class="demo-body">
-        <div class="demo-sides">
-          <div class="demo-col">
-            <div class="demo-label">Downloads</div>
-            <div id="srcFiles"></div>
+      <div class="demo-inner">
+        <div class="d-badge"><div class="d-badge-dot"></div> Watching</div>
+
+        <div class="d-stats">
+          <div class="d-stat">
+            <div class="d-stat-label">Freed Up</div>
+            <div class="d-stat-val gold" id="dFreed">0.00 GB</div>
           </div>
-          <div class="demo-arrow">&rarr;</div>
-          <div class="demo-col">
-            <div class="demo-label">Vault</div>
-            <div id="vaultFiles"></div>
+          <div class="d-stat">
+            <div class="d-stat-label">Files Swept</div>
+            <div class="d-stat-val" id="dCount">0</div>
+          </div>
+          <div class="d-stat">
+            <div class="d-stat-label">In Queue</div>
+            <div class="d-stat-val" id="dQueue">0</div>
           </div>
         </div>
-        <div class="demo-status" id="demoStatus"></div>
-        <div class="demo-freed" id="demoFreed"></div>
+
+        <div class="d-section">
+          <span>Queue</span>
+          <div class="d-count" id="dQueueBadge">0</div>
+        </div>
+        <div class="d-card" id="dQueueCard">
+          <div class="d-empty" id="dQueueEmpty">No files waiting</div>
+        </div>
+
+        <div class="d-section"><span>Recently Swept</span></div>
+        <div class="d-card" id="dHistCard">
+          <div class="d-empty" id="dHistEmpty">Nothing swept yet</div>
+        </div>
+
+        <div class="d-toast" id="dToast"></div>
       </div>
     </div>
 
@@ -370,102 +513,120 @@
       });
     }
 
-    // === DEMO ANIMATION ===
+    // === DEMO ===
     const files = [
-      { name: "Screenshot_04-06.png", icon: "\u{1F5BC}", type: "img", size: "2.4 MB" },
-      { name: "Q1_Report.pdf", icon: "\u{1F4C4}", type: "doc", size: "8.1 MB" },
-      { name: "vacation.mp4", icon: "\u{1F3AC}", type: "vid", size: "142 MB" },
-      { name: "project.zip", icon: "\u{1F4E6}", type: "zip", size: "36 MB" },
-      { name: "receipt_march.jpg", icon: "\u{1F5BC}", type: "img", size: "1.1 MB" },
-      { name: "notes.txt", icon: "\u{1F4C4}", type: "doc", size: "12 KB" },
+      { name: "Screenshot 2026-04-06 191942.png", source: "Pictures/Screenshots", size: "392.1 KB", icon: "\u{1F5BC}", dest: "collected/Images", bytes: 0.000392 },
+      { name: "Q1_Report_Final.pdf", source: "Downloads", size: "8.1 MB", icon: "\u{1F4C4}", dest: "collected/Documents", bytes: 0.008 },
+      { name: "vacation_clip.mp4", source: "Downloads", size: "142 MB", icon: "\u{1F3AC}", dest: "collected/Videos", bytes: 0.142 },
+      { name: "Screenshot 2026-04-06 191952.png", source: "Pictures/Screenshots", size: "287.3 KB", icon: "\u{1F5BC}", dest: "collected/Images", bytes: 0.000287 },
+      { name: "project-assets.zip", source: "Downloads", size: "36 MB", icon: "\u{1F4E6}", dest: "collected/Archives", bytes: 0.036 },
+      { name: "receipt_march.jpg", source: "Downloads", size: "1.1 MB", icon: "\u{1F5BC}", dest: "collected/Images", bytes: 0.0011 },
     ];
 
-    const srcEl = document.getElementById("srcFiles");
-    const vaultEl = document.getElementById("vaultFiles");
-    const statusEl = document.getElementById("demoStatus");
-    const freedEl = document.getElementById("demoFreed");
-
-    let freed = 0;
     let fileIdx = 0;
-    let srcQueue = [];
+    let swept = 0;
+    let freedGB = 0;
+    let queueItems = [];
+    let toastTimer = null;
 
-    function parseSize(s) {
-      const n = parseFloat(s);
-      if (s.includes("MB")) return n;
-      if (s.includes("KB")) return n / 1024;
-      if (s.includes("GB")) return n * 1024;
-      return n;
+    const dFreed = document.getElementById("dFreed");
+    const dCount = document.getElementById("dCount");
+    const dQueue = document.getElementById("dQueue");
+    const dQueueBadge = document.getElementById("dQueueBadge");
+    const dQueueCard = document.getElementById("dQueueCard");
+    const dQueueEmpty = document.getElementById("dQueueEmpty");
+    const dHistCard = document.getElementById("dHistCard");
+    const dHistEmpty = document.getElementById("dHistEmpty");
+    const dToast = document.getElementById("dToast");
+
+    function showToast(msg, type) {
+      dToast.textContent = msg;
+      dToast.className = "d-toast " + type + " show";
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => dToast.classList.remove("show"), 2500);
     }
 
-    function makeFileEl(file, countdown) {
-      const el = document.createElement("div");
-      el.className = "demo-file adding";
-      el.innerHTML = `
-        <div class="demo-file-icon ${file.type}">${file.icon}</div>
-        <div class="demo-file-name">${file.name}</div>
-        ${countdown ? `<div class="demo-countdown">${countdown}</div>` : ""}
-      `;
-      return el;
+    function updateStats() {
+      dFreed.textContent = freedGB.toFixed(2) + " GB";
+      dCount.textContent = swept;
+      dQueue.textContent = queueItems.length;
+      dQueueBadge.textContent = queueItems.length;
     }
 
-    function addFile() {
+    function addToQueue() {
       const file = files[fileIdx % files.length];
       fileIdx++;
 
-      const el = makeFileEl(file, "5s");
-      srcEl.appendChild(el);
-      srcQueue.push({ el, file, time: 5 });
+      dQueueEmpty.style.display = "none";
 
-      statusEl.innerHTML = `Detected <strong>${file.name}</strong>`;
+      const el = document.createElement("div");
+      el.className = "d-file adding";
+      el.innerHTML = `
+        <div class="d-file-thumb">${file.icon}</div>
+        <div class="d-file-info">
+          <div class="d-file-name">${file.name}</div>
+          <div class="d-file-meta">from ${file.source} &middot; ${file.size}</div>
+        </div>
+        <div class="d-countdown">5s</div>
+        <div class="d-x">\u2715</div>
+      `;
+      dQueueCard.appendChild(el);
 
-      // Keep max 3 in source
-      while (srcQueue.length > 3) {
-        const old = srcQueue.shift();
-        old.el.classList.add("removing");
-        setTimeout(() => old.el.remove(), 400);
-      }
+      const item = { el, file, time: 5 };
+      queueItems.push(item);
+      updateStats();
+
+      showToast("Detected: " + file.name, "swept-toast");
     }
 
-    function tickCountdowns() {
-      srcQueue.forEach(item => {
+    function tick() {
+      queueItems.forEach(item => {
         item.time--;
-        const cd = item.el.querySelector(".demo-countdown");
+        const cd = item.el.querySelector(".d-countdown");
         if (cd) cd.textContent = Math.max(0, item.time) + "s";
       });
 
-      // Sweep files at 0
-      const ready = srcQueue.filter(i => i.time <= 0);
+      const ready = queueItems.filter(i => i.time <= 0);
       ready.forEach(item => {
-        srcQueue = srcQueue.filter(i => i !== item);
+        queueItems = queueItems.filter(i => i !== item);
 
-        // Remove from source
+        // Remove from queue
         item.el.classList.add("removing");
         setTimeout(() => item.el.remove(), 400);
 
-        // Add to vault
-        const vEl = makeFileEl(item.file, null);
-        vEl.classList.add("swept");
-        vaultEl.insertBefore(vEl, vaultEl.firstChild);
+        // Add to history
+        dHistEmpty.style.display = "none";
+        const hEl = document.createElement("div");
+        hEl.className = "d-hist adding";
+        hEl.innerHTML = `
+          <div class="d-file-thumb" style="width:28px;height:28px;font-size:12px;margin-right:8px">${item.file.icon}</div>
+          <div class="d-hist-name">${item.file.name}</div>
+          <div class="d-hist-dest">${item.file.dest}</div>
+          <div class="d-hist-undo">Undo</div>
+        `;
+        dHistCard.insertBefore(hEl, dHistCard.firstChild);
 
-        // Keep max 4 in vault
-        while (vaultEl.children.length > 4) {
-          const last = vaultEl.lastChild;
-          last.classList.add("removing");
-          setTimeout(() => last.remove(), 400);
+        // Keep max 3 in history
+        while (dHistCard.querySelectorAll(".d-hist").length > 3) {
+          dHistCard.lastElementChild.remove();
         }
 
-        freed += parseSize(item.file.size);
-        const freedGB = (freed / 1024).toFixed(2);
-        freedEl.textContent = freedGB + " GB freed";
+        swept++;
+        freedGB += item.file.bytes;
+        updateStats();
 
-        statusEl.innerHTML = `Swept <strong>${item.file.name}</strong> &mdash; deleted from Downloads`;
+        showToast("Swept: " + item.file.name + " \u2014 deleted from " + item.file.source, "deleted-toast");
       });
+
+      if (queueItems.length === 0) {
+        dQueueEmpty.style.display = "";
+      }
     }
 
-    // Run the demo loop
-    addFile();
-    setInterval(tickCountdowns, 1000);
-    setInterval(addFile, 4000);
+    // Start the loop
+    setTimeout(addToQueue, 1000);
+    setInterval(tick, 1000);
+    setInterval(addToQueue, 8000);
   </script>
 </body>
 </html>
