@@ -15,20 +15,189 @@
       background: #faf6f0;
       color: #4a3f35;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .page {
-      max-width: 480px;
-      width: 100%;
-      padding: 24px;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 60px 24px;
       text-align: center;
     }
 
+    .rundown {
+      font-size: 15px;
+      color: #7a6e60;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .byline {
+      font-size: 14px;
+      font-weight: 600;
+      color: #b8964e;
+      margin-bottom: 40px;
+    }
+
+    /* Demo */
+    .demo {
+      background: #fff;
+      border: 1px solid #e8e0d4;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 6px 30px rgba(80, 60, 30, 0.06);
+      text-align: left;
+    }
+
+    .demo-bar {
+      background: #f5f0ea;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid #e8e0d4;
+    }
+
+    .demo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ddd4c8;
+    }
+
+    .demo-body {
+      padding: 16px;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .demo-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #b5a898;
+      margin-bottom: 10px;
+    }
+
+    .demo-sides {
+      display: flex;
+      gap: 12px;
+    }
+
+    .demo-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .demo-file {
+      display: flex;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 7px;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #3d3428;
+      transition: all 0.4s ease;
+      overflow: hidden;
+      max-height: 44px;
+      opacity: 1;
+      background: #fdfbf8;
+      border: 1px solid #f0e8dc;
+    }
+
+    .demo-file.removing {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-color: transparent;
+    }
+
+    .demo-file.adding {
+      animation: fileIn 0.3s ease;
+    }
+
+    @keyframes fileIn {
+      from { opacity: 0; max-height: 0; padding: 0 10px; margin-bottom: 0; }
+      to { opacity: 1; max-height: 44px; padding: 8px 10px; margin-bottom: 6px; }
+    }
+
+    .demo-file-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    .demo-file-icon.img { background: #fef5e0; }
+    .demo-file-icon.doc { background: #eef3e8; }
+    .demo-file-icon.vid { background: #fce8ec; }
+    .demo-file-icon.zip { background: #e8eef5; }
+
+    .demo-file-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .demo-countdown {
+      font-size: 10px;
+      font-weight: 600;
+      color: #b8964e;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    .demo-file.swept {
+      background: #f5f0ea;
+      border-color: #e8e0d4;
+      color: #9a8b78;
+    }
+
+    .demo-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b8964e;
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 24px;
+      align-self: center;
+    }
+
+    .demo-status {
+      text-align: center;
+      font-size: 10px;
+      color: #b5a898;
+      margin-top: 12px;
+      min-height: 16px;
+    }
+
+    .demo-status strong {
+      color: #b8964e;
+      font-weight: 600;
+    }
+
+    .demo-freed {
+      font-size: 11px;
+      font-weight: 600;
+      color: #b8964e;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* CTA */
     .cta {
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
 
     .cta a {
@@ -52,12 +221,13 @@
       margin-top: 12px;
     }
 
+    /* Setup */
     .setup-box {
       background: #fff;
       border: 1px solid #e8e0d4;
       border-radius: 12px;
       padding: 24px;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
       text-align: left;
     }
 
@@ -107,7 +277,6 @@
     }
 
     .setup-cmd:hover { background: #4a3f35; }
-
     .setup-cmd span { color: #b8964e; }
 
     .copied-toast {
@@ -124,20 +293,6 @@
 
     .copied-toast.show { opacity: 1; }
 
-    .rundown {
-      font-size: 15px;
-      color: #7a6e60;
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-
-    .byline {
-      font-size: 14px;
-      font-weight: 600;
-      color: #b8964e;
-      margin-bottom: 32px;
-    }
-
     .footer {
       font-size: 12px;
       color: #b5a898;
@@ -146,8 +301,32 @@
 </head>
 <body>
   <div class="page">
-    <div class="rundown">Watches your Downloads, Pictures, and Screenshots. When a new file shows up, it gives you time to use it, then sweeps it into one organized folder. Set your own delay, cancel anything you want to keep, undo if you change your mind.</div>
+    <div class="rundown">Watches your Downloads, Pictures, and Screenshots for new files. Gives you time to use them, then automatically moves them to one organized vault and deletes the originals. Cancel anything you want to keep, undo if you change your mind.</div>
     <div class="byline">by Layton Gott</div>
+
+    <!-- Live demo -->
+    <div class="demo">
+      <div class="demo-bar">
+        <div class="demo-dot"></div>
+        <div class="demo-dot"></div>
+        <div class="demo-dot"></div>
+      </div>
+      <div class="demo-body">
+        <div class="demo-sides">
+          <div class="demo-col">
+            <div class="demo-label">Downloads</div>
+            <div id="srcFiles"></div>
+          </div>
+          <div class="demo-arrow">&rarr;</div>
+          <div class="demo-col">
+            <div class="demo-label">Vault</div>
+            <div id="vaultFiles"></div>
+          </div>
+        </div>
+        <div class="demo-status" id="demoStatus"></div>
+        <div class="demo-freed" id="demoFreed"></div>
+      </div>
+    </div>
 
     <div class="cta">
       <a href="https://github.com/LaytonGott/file-sweep-app">Download from GitHub</a>
@@ -190,6 +369,103 @@
         setTimeout(() => toast.classList.remove('show'), 1500);
       });
     }
+
+    // === DEMO ANIMATION ===
+    const files = [
+      { name: "Screenshot_04-06.png", icon: "\u{1F5BC}", type: "img", size: "2.4 MB" },
+      { name: "Q1_Report.pdf", icon: "\u{1F4C4}", type: "doc", size: "8.1 MB" },
+      { name: "vacation.mp4", icon: "\u{1F3AC}", type: "vid", size: "142 MB" },
+      { name: "project.zip", icon: "\u{1F4E6}", type: "zip", size: "36 MB" },
+      { name: "receipt_march.jpg", icon: "\u{1F5BC}", type: "img", size: "1.1 MB" },
+      { name: "notes.txt", icon: "\u{1F4C4}", type: "doc", size: "12 KB" },
+    ];
+
+    const srcEl = document.getElementById("srcFiles");
+    const vaultEl = document.getElementById("vaultFiles");
+    const statusEl = document.getElementById("demoStatus");
+    const freedEl = document.getElementById("demoFreed");
+
+    let freed = 0;
+    let fileIdx = 0;
+    let srcQueue = [];
+
+    function parseSize(s) {
+      const n = parseFloat(s);
+      if (s.includes("MB")) return n;
+      if (s.includes("KB")) return n / 1024;
+      if (s.includes("GB")) return n * 1024;
+      return n;
+    }
+
+    function makeFileEl(file, countdown) {
+      const el = document.createElement("div");
+      el.className = "demo-file adding";
+      el.innerHTML = `
+        <div class="demo-file-icon ${file.type}">${file.icon}</div>
+        <div class="demo-file-name">${file.name}</div>
+        ${countdown ? `<div class="demo-countdown">${countdown}</div>` : ""}
+      `;
+      return el;
+    }
+
+    function addFile() {
+      const file = files[fileIdx % files.length];
+      fileIdx++;
+
+      const el = makeFileEl(file, "5s");
+      srcEl.appendChild(el);
+      srcQueue.push({ el, file, time: 5 });
+
+      statusEl.innerHTML = `Detected <strong>${file.name}</strong>`;
+
+      // Keep max 3 in source
+      while (srcQueue.length > 3) {
+        const old = srcQueue.shift();
+        old.el.classList.add("removing");
+        setTimeout(() => old.el.remove(), 400);
+      }
+    }
+
+    function tickCountdowns() {
+      srcQueue.forEach(item => {
+        item.time--;
+        const cd = item.el.querySelector(".demo-countdown");
+        if (cd) cd.textContent = Math.max(0, item.time) + "s";
+      });
+
+      // Sweep files at 0
+      const ready = srcQueue.filter(i => i.time <= 0);
+      ready.forEach(item => {
+        srcQueue = srcQueue.filter(i => i !== item);
+
+        // Remove from source
+        item.el.classList.add("removing");
+        setTimeout(() => item.el.remove(), 400);
+
+        // Add to vault
+        const vEl = makeFileEl(item.file, null);
+        vEl.classList.add("swept");
+        vaultEl.insertBefore(vEl, vaultEl.firstChild);
+
+        // Keep max 4 in vault
+        while (vaultEl.children.length > 4) {
+          const last = vaultEl.lastChild;
+          last.classList.add("removing");
+          setTimeout(() => last.remove(), 400);
+        }
+
+        freed += parseSize(item.file.size);
+        const freedGB = (freed / 1024).toFixed(2);
+        freedEl.textContent = freedGB + " GB freed";
+
+        statusEl.innerHTML = `Swept <strong>${item.file.name}</strong> &mdash; deleted from Downloads`;
+      });
+    }
+
+    // Run the demo loop
+    addFile();
+    setInterval(tickCountdowns, 1000);
+    setInterval(addFile, 4000);
   </script>
 </body>
 </html>
