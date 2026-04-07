@@ -15,42 +15,20 @@
       background: #faf6f0;
       color: #4a3f35;
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .page {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 80px 24px 60px;
-    }
-
-    .hero {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .hero h1 {
-      font-size: 40px;
-      font-weight: 700;
-      color: #3d3428;
-      letter-spacing: -0.5px;
-      margin-bottom: 16px;
-      line-height: 1.15;
-    }
-
-    .hero h1 span { color: #b8964e; }
-
-    .hero p {
-      font-size: 17px;
-      color: #7a6e60;
-      line-height: 1.6;
       max-width: 480px;
-      margin: 0 auto;
+      width: 100%;
+      padding: 24px;
+      text-align: center;
     }
 
-    /* CTA */
     .cta {
-      text-align: center;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
     }
 
     .cta a {
@@ -74,13 +52,13 @@
       margin-top: 12px;
     }
 
-    /* Setup steps */
     .setup-box {
       background: #fff;
       border: 1px solid #e8e0d4;
       border-radius: 12px;
       padding: 24px;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
+      text-align: left;
     }
 
     .setup-label {
@@ -146,156 +124,7 @@
 
     .copied-toast.show { opacity: 1; }
 
-    /* Preview */
-    .preview {
-      background: #fff;
-      border: 1px solid #e8e0d4;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 56px;
-      box-shadow: 0 8px 40px rgba(80, 60, 30, 0.06);
-    }
-
-    .preview-bar {
-      background: #f5f0ea;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 1px solid #e8e0d4;
-    }
-
-    .preview-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ddd4c8;
-    }
-
-    .preview-body { padding: 20px; }
-
-    .preview-stat-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .preview-stat {
-      flex: 1;
-      background: #faf6f0;
-      border: 1px solid #ede6dc;
-      border-radius: 8px;
-      padding: 12px;
-    }
-
-    .preview-stat-label {
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #b5a898;
-      margin-bottom: 2px;
-    }
-
-    .preview-stat-val {
-      font-size: 18px;
-      font-weight: 600;
-      color: #3d3428;
-    }
-
-    .preview-stat-val.gold { color: #b8964e; }
-
-    .preview-row {
-      display: flex;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px solid #f2ece4;
-    }
-
-    .preview-row:last-child { border-bottom: none; }
-
-    .preview-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      background: #fef5e0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    .preview-name {
-      flex: 1;
-      font-size: 12px;
-      font-weight: 500;
-      color: #3d3428;
-    }
-
-    .preview-time {
-      font-size: 12px;
-      font-weight: 600;
-      color: #b8964e;
-    }
-
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 56px;
-    }
-
-    @media (max-width: 500px) {
-      .features { grid-template-columns: 1fr; }
-    }
-
-    .feature {
-      background: #fff;
-      border: 1px solid #e8e0d4;
-      border-radius: 10px;
-      padding: 16px;
-    }
-
-    .feature h3 {
-      font-size: 13px;
-      font-weight: 600;
-      color: #3d3428;
-      margin-bottom: 4px;
-    }
-
-    .feature p {
-      font-size: 12px;
-      color: #7a6e60;
-      line-height: 1.5;
-    }
-
-    /* Platforms */
-    .platforms {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-
-    .platform-badge {
-      font-size: 12px;
-      color: #9a8b78;
-      background: #f5f0ea;
-      border: 1px solid #e8e0d4;
-      padding: 6px 14px;
-      border-radius: 100px;
-    }
-
-    /* Footer */
     .footer {
-      text-align: center;
-      padding-top: 32px;
-      border-top: 1px solid #e8e0d4;
-    }
-
-    .footer p {
       font-size: 12px;
       color: #b5a898;
     }
@@ -303,18 +132,13 @@
 </head>
 <body>
   <div class="page">
-    <div class="hero">
-      <h1>Your files, <span>swept</span> clean.</h1>
-      <p>Downloads, screenshots, random files &mdash; they pile up. This watches your folders, gives you time to use what you need, then tidies the rest into one organized vault.</p>
-    </div>
-
     <div class="cta">
       <a href="https://github.com/LaytonGott/file-sweep-app">Download from GitHub</a>
-      <div class="cta-sub">Free &middot; Open source &middot; Your files stay on your computer</div>
+      <div class="cta-sub">Free &middot; Open source &middot; Runs locally</div>
     </div>
 
     <div class="setup-box">
-      <div class="setup-label">Setup (30 seconds)</div>
+      <div class="setup-label">Setup</div>
       <div class="setup-step">
         <div class="setup-num">1</div>
         <div class="setup-cmd" onclick="copy(this, 'git clone https://github.com/LaytonGott/file-sweep-app.git')">
@@ -324,8 +148,8 @@
       </div>
       <div class="setup-step">
         <div class="setup-num">2</div>
-        <div class="setup-cmd" onclick="copy(this, 'cd file-sweep && npm install')">
-          <span>cd</span> file-sweep <span>&&</span> npm install
+        <div class="setup-cmd" onclick="copy(this, 'cd file-sweep-app && npm install')">
+          <span>cd</span> file-sweep-app <span>&&</span> npm install
           <span class="copied-toast">Copied</span>
         </div>
       </div>
@@ -338,81 +162,7 @@
       </div>
     </div>
 
-    <div class="preview">
-      <div class="preview-bar">
-        <div class="preview-dot"></div>
-        <div class="preview-dot"></div>
-        <div class="preview-dot"></div>
-      </div>
-      <div class="preview-body">
-        <div class="preview-stat-row">
-          <div class="preview-stat">
-            <div class="preview-stat-label">Freed Up</div>
-            <div class="preview-stat-val gold">2.41 GB</div>
-          </div>
-          <div class="preview-stat">
-            <div class="preview-stat-label">Files Swept</div>
-            <div class="preview-stat-val">847</div>
-          </div>
-          <div class="preview-stat">
-            <div class="preview-stat-label">In Queue</div>
-            <div class="preview-stat-val">3</div>
-          </div>
-        </div>
-        <div class="preview-row">
-          <div class="preview-icon">&#x1F5BC;</div>
-          <div class="preview-name">Screenshot_2026-04-06.png</div>
-          <div class="preview-time">4m 32s</div>
-        </div>
-        <div class="preview-row">
-          <div class="preview-icon" style="background:#eef3e8">&#x1F4C4;</div>
-          <div class="preview-name">Q1_Report_Final.pdf</div>
-          <div class="preview-time">8m 15s</div>
-        </div>
-        <div class="preview-row">
-          <div class="preview-icon" style="background:#e8eef5">&#x1F4E6;</div>
-          <div class="preview-name">project-assets.zip</div>
-          <div class="preview-time">12m 1s</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="features">
-      <div class="feature">
-        <h3>Configurable delay</h3>
-        <p>5, 10, 15, or 30 min. Use your files before they get swept.</p>
-      </div>
-      <div class="feature">
-        <h3>Cancel &amp; undo</h3>
-        <p>Keep files from the queue or restore them after sweeping.</p>
-      </div>
-      <div class="feature">
-        <h3>Image previews</h3>
-        <p>See thumbnails before files get moved so you know what's what.</p>
-      </div>
-      <div class="feature">
-        <h3>Tracks savings</h3>
-        <p>See how many GB you've freed up, persisted across sessions.</p>
-      </div>
-      <div class="feature">
-        <h3>Auto-organizes</h3>
-        <p>Images, docs, videos, audio, archives &mdash; each in their own folder.</p>
-      </div>
-      <div class="feature">
-        <h3>Cross-platform</h3>
-        <p>Works on Windows, macOS, and Linux out of the box.</p>
-      </div>
-    </div>
-
-    <div class="platforms">
-      <div class="platform-badge">Windows</div>
-      <div class="platform-badge">macOS</div>
-      <div class="platform-badge">Linux</div>
-    </div>
-
-    <div class="footer">
-      <p>Open source. Runs locally. Your files never leave your computer.</p>
-    </div>
+    <div class="footer">by Layton Gott</div>
   </div>
 
   <script>
